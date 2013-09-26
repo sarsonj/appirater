@@ -464,7 +464,6 @@ static BOOL _alwaysUseMainBundle = NO;
 }
 
 + (void)rateApp {
-	
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setBool:YES forKey:kAppiraterRatedCurrentVersion];
 	[userDefaults synchronize];
@@ -496,12 +495,13 @@ static BOOL _alwaysUseMainBundle = NO;
 		#else
 		NSString *reviewURL = [templateReviewURL stringByReplacingOccurrencesOfString:@"APP_ID" withString:[NSString stringWithFormat:@"%@", _appId]];
 
+        
+        
 		// iOS 7 needs a different templateReviewURL @see https://github.com/arashpayan/appirater/issues/131
 		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"iosSpecialRateUrl"]) {
 			reviewURL = [templateReviewURLiOS7 stringByReplacingOccurrencesOfString:@"APP_ID" withString:[NSString stringWithFormat:@"%@", _appId]];
 			reviewURL = [reviewURL stringByReplacingOccurrencesOfString:@"LANGUAGE" withString:[NSString stringWithFormat:@"%@", [[NSLocale preferredLanguages] objectAtIndex:0]]];
 		}
-
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:reviewURL]];
 		#endif
 	}
